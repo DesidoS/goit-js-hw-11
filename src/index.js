@@ -60,7 +60,7 @@ function onLoadMore(e) {
 }
 
 function handleClick() {
-  simpleLightbox = new SimpleLightbox('.gallery a', {
+  simpleLightBox = new SimpleLightbox('.gallery a', {
     captions: true,
     captionsData: 'alt',
     captionDelay: 250,
