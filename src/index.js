@@ -46,7 +46,7 @@ function onSubmit(e) {
 }
 
 function onLoadMore(e) {
-  simpleLightbox.destroy()
+  simpleLightBox.destroy()
   e.preventDefault();
   page += 1;
   fetchPixabay(content, page)
