@@ -1,0 +1,127 @@
+header {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    margin-top: -120px;
+    background: linear-gradient(to bottom, #0057b8, #ffd700);
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+
+}
+
+body {
+    margin-top: 120px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+input {
+    display: flex;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: inherit;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    color: #ffd700;
+    &:focus-visible{
+        border: none;
+
+    }
+    &::placeholder{
+        color:#ffd700;
+    }
+}
+
+.submitBtn {
+    padding: 5px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: inherit;
+    color: #0057b8
+}
+
+:root {
+    --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-duration: 250ms;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1140px;
+    justify-content: center;
+    padding: 0;
+    margin-top: 20px;
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gallery__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;    
+    height: 100%;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    transition: transform var(--animation-duration) var(--timing-function);
+}
+.info {
+    padding: яч0 20px;
+    display: flex;
+}
+
+.gallery__item:hover {
+    transform: scale(1.03);
+}
+
+.gallery__image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.gallery__link {
+    flex-basis: calc((100% - 90px)/3);
+    margin-left: 30px;
+    margin-bottom: 30px;
+    display: block;
+    text-decoration: none;
+}
+
+.gallery__item:hover {
+    cursor: zoom-in;
+}
+
+.info-item {
+    color: #2F303A;
+}
+
+.more__btn {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    padding: 5px;
+    background-color: #0057b8;
+    width: 100px;
+    color: #ffd700;
+    border:#0057b8;
+    border-radius: 10px;
+}
+
+.is-hidden {
+    display: none;
+}
