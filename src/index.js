@@ -36,9 +36,11 @@ function onSubmit(e) {
       if (res.data.total > 0) {
       qPages = res.data.totalHits / 40;
       galleryContainer.innerHTML = '';
-      moreBtn.classList.remove("is-hidden");
+        if (res.data.total > 40) {
+          moreBtn.classList.remove("is-hidden");
+        }
       galleryContainer.insertAdjacentHTML('beforeend', createMarkup(res.data.hits))
-      Notiflix.Notify.success(`Hooray! We found ${res.data.totalHits} images.`);
+      Notiflix.Notify.success(`Hooray! We found ${res.data.total} images.`);
       handleClick()
     }
     })
@@ -66,3 +68,5 @@ function handleClick() {
     captionDelay: 250,
   }).refresh();
 }
+
+console.log([]+[] === "")
