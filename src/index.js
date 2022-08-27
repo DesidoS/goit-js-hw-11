@@ -4,16 +4,14 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 import { fetchPixabay } from './api/api-service';
 import { createMarkup } from './templates/templates';
 
-const form = document.getElementById('search-form');
 const galleryContainer = document.querySelector('.gallery');
 const moreBtn = document.querySelector('.more__btn')
 let simpleLightBox;
 let content = ""
 let page = 0;
-let qPages = 0;
+let totalPage = 0;
 
-
-form.addEventListener('submit', onSubmit);
+document.getElementById('search-form').addEventListener('submit', onSubmit);
 moreBtn.addEventListener('click', onLoadMore);
 
 
@@ -35,19 +33,20 @@ function onSubmit(e) {
     
     if (res.data.totalHits === 0) {
       Notiflix.Notify.info("Sorry, there are no images matching your search query. Please try again.");
+      return
     }
-      if (res.data.totalHits > 0) {
-      qPages = res.data.totalHits / 40;
-      galleryContainer.innerHTML = '';
-        if (res.data.totalHits > 40) {
-          moreBtn.classList.remove("is-hidden");
-        }
-        if (res.data.totalHits < 40) {
-          moreBtn.classList.add("is-hidden");
-        }
-      galleryContainer.insertAdjacentHTML('beforeend', createMarkup(res.data.hits))
+    if (res.data.totalHits > 0) {
+    totalPage = res.data.totalHits / 40;
+    galleryContainer.innerHTML = '';
+      if (res.data.totalHits > 40) {
+        moreBtn.classList.remove("is-hidden");
+      }
+      if (res.data.totalHits < 40) {
+        moreBtn.classList.add("is-hidden");
+      }
+      galleryContainer.insertAdjacentHTML('beforeend', createMarkup(res.data.hits));
       Notiflix.Notify.success(`Hooray! We found ${res.data.totalHits} images.`);
-      handleClick()
+      handleClick();
     }
     })
   e.currentTarget.reset();
@@ -62,7 +61,7 @@ function onLoadMore(e) {
       galleryContainer.insertAdjacentHTML('beforeend', createMarkup(res.data.hits))
       handleClick()
     })
-  if (page >= qPages) {
+  if (page >= totalPage) {
       moreBtn.classList.add("is-hidden");
   }
 }
