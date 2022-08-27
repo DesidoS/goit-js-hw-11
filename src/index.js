@@ -4,7 +4,6 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 import { fetchPixabay } from './api/api-service';
 import { createMarkup } from './templates/templates';
 
-const pixaSearch = document.querySelector('input');
 const form = document.getElementById('search-form');
 const galleryContainer = document.querySelector('.gallery');
 const moreBtn = document.querySelector('.more__btn')
@@ -22,7 +21,11 @@ function onSubmit(e) {
   window.scrollTo({ top: 0 });
   e.preventDefault();
   page = 1
-  content = pixaSearch.value.trim();
+  if (content && content === e.currentTarget.elements[0].value.trim()) {
+    Notiflix.Notify.info("Sorry, enter another query.");
+    return
+  }
+  content = e.currentTarget.elements[0].value.trim()
   if (!content) {
     Notiflix.Notify.warning('Please, enter field');
     return;
@@ -30,17 +33,20 @@ function onSubmit(e) {
   fetchPixabay(content, page)
     .then(res => {
     
-    if (res.data.total === 0) {
+    if (res.data.totalHits === 0) {
       Notiflix.Notify.info("Sorry, there are no images matching your search query. Please try again.");
     }
-      if (res.data.total > 0) {
+      if (res.data.totalHits > 0) {
       qPages = res.data.totalHits / 40;
       galleryContainer.innerHTML = '';
-        if (res.data.total > 40) {
+        if (res.data.totalHits > 40) {
           moreBtn.classList.remove("is-hidden");
         }
+        if (res.data.totalHits < 40) {
+          moreBtn.classList.add("is-hidden");
+        }
       galleryContainer.insertAdjacentHTML('beforeend', createMarkup(res.data.hits))
-      Notiflix.Notify.success(`Hooray! We found ${res.data.total} images.`);
+      Notiflix.Notify.success(`Hooray! We found ${res.data.totalHits} images.`);
       handleClick()
     }
     })
@@ -68,5 +74,3 @@ function handleClick() {
     captionDelay: 250,
   }).refresh();
 }
-
-console.log([]+[] === "")
